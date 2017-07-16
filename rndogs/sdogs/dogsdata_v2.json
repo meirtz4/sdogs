@@ -1,0 +1,17 @@
+{"schedule" :{
+  "floor2":{
+    "Sunday" : [],
+    "Monday" : ["Polly"],
+    "Tuseday" : ["Masha"],
+    "Wednesday" : ["Polly"],
+    "Thursday" : ["Masha"]
+  },
+  "floor3":{
+    "Sunday" : ["Tchutch","Google"],
+    "Monday" : ["Tchutch","Jango","Sefi"],
+    "Tuseday" : ["Tchutch", "Kongo","Google","Oliver","Sefi"],
+    "Wednesday" : ["Jango","Kapi","Nick"],
+    "Thursday" : []
+  }
+}
+}

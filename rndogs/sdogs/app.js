@@ -3,9 +3,10 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import dogs from './dogsdata_v1.json';
+// import dogs from './dogsdata_v1.json';
+import keychain from './private.json';
 import {
   AppRegistry,
   StyleSheet,
@@ -13,12 +14,38 @@ import {
   View
 } from 'react-native';
 
+const firebaseApp = firebase.initializeApp(keychain.firebase);
+
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.itemsRef = firebase.database().ref();
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.itemsRef.on('value', (items) => {
+      
+      this.setState({items: items.val()})
+    })
+  }
+
+  stringifyWeek(week) {
+    return Object.keys(week).map(d => `${d}: ${week[d]}`)
+  }
+
   render() {
+    if (!this.state.items) {
+      return <Text>Loading...</Text>
+    }
     return (
       <View style={styles.container}>
-        
-          {Object.keys(dogs).map(v => <Text>{`Floor ${v.substr(1, 1)} - ${v.substr(2, v.length)} : ${dogs[v]}`}</Text>)}
+        <Text>
+          {/*{JSON.stringify(Object.keys(this.state.items))}*/}
+          </Text>
+          {Object.keys(this.state.items['schedule']).map(v => <Text key={v}>{`${v} - ${this.stringifyWeek(this.state.items['schedule'][v])}`}</Text>)}
+          {/*{this.state.items.map(i => <Text>{`${Object.keys(i)[0]}`}</Text>)}*/}
+          
         
       </View>
     );
