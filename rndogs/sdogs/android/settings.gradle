@@ -1,0 +1,3 @@
+rootProject.name = 'sdogs'
+
+include ':app'
