@@ -8,13 +8,18 @@ import React, { Component } from 'react';
 // import dogs from './dogsdata_v1.json';
 import keychain from './private.json';
 import {
-  AppRegistry,
+  FlatList,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
 const firebaseApp = firebase.initializeApp(keychain.firebase);
+
+const DayView = ({day, dogs}) => <View>
+                          <Text>{day}</Text>
+                          <FlatList data={dogs.map(d => {return {key:d, dog:d}})} renderItem={(i) => <Text key={i.item.key}>{i.item.dog}</Text>}/>
+                      </View>
 
 export default class App extends Component {
   constructor(props) {
@@ -31,7 +36,7 @@ export default class App extends Component {
   }
 
   stringifyWeek(week) {
-    return Object.keys(week).map(d => `${d}: ${week[d]}`)
+    return Object.keys(week).map(d => <DayView key={d} day={d} dogs={week[d]} />)
   }
 
   render() {
@@ -39,14 +44,8 @@ export default class App extends Component {
       return <Text>Loading...</Text>
     }
     return (
-      <View style={styles.container}>
-        <Text>
-          {/*{JSON.stringify(Object.keys(this.state.items))}*/}
-          </Text>
-          {Object.keys(this.state.items['schedule']).map(v => <Text key={v}>{`${v} - ${this.stringifyWeek(this.state.items['schedule'][v])}`}</Text>)}
-          {/*{this.state.items.map(i => <Text>{`${Object.keys(i)[0]}`}</Text>)}*/}
-          
-        
+      <View >
+          {Object.keys(this.state.items['schedule']).map(v => <View key={v}><Text>{`${v} - `}</Text>{this.stringifyWeek(this.state.items['schedule'][v])}</View>)}
       </View>
     );
   }
