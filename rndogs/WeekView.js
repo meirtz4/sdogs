@@ -21,7 +21,7 @@ const WeekListItem = ({dayOfWeek, dogs}) =>
 <View style={{flex:1, flexDirection:'row'}}>
 <View style={{flex:1, flexDirection:'column'}}>
         <Text style={{fontSize:20, fontWeight:'bold', marginBottom:5}}>{dayOfWeek}</Text>
-        <Text style={{fontSize:20, fontWeight:'bold', marginBottom:5}}>{dogs ? '🐶'.repeat(dogs.length) : '0 🐩 😢'}</Text>
+        <Text style={{fontSize:20, fontWeight:'bold', marginBottom:5}}>{dogs ? '🐶'.repeat(dogs.length) : 'No dogs 😢'}</Text>
         </View>
         <Button onPress={() => {}} title={'More...'} />
     </View>
