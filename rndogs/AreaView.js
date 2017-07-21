@@ -10,8 +10,8 @@ class AreaView extends React.Component {
     render() {
         const {navigation} = this.props;
         return (
-    <View>
-        {navigation.state.params.weeks.map(w => <WeekView key={w} week={w} />)}
+    <View style={{flex:1}}>
+        {navigation.state.params.weeks.map(w => <View key={w} style={{flex:1, height:'100%'}}><WeekView key={w} week={w} /></View>)}
     </View>);
     }
 }

@@ -48,7 +48,7 @@ class App extends Component {
     const { navigate } = this.props.navigation;
     const areas = Object.keys(this.state.items['schedule']).map(area => ({key: area, data: area}));
     return (
-      <View >
+      <View style={{flex:1}}>
         <FlatList data={areas} renderItem={({item}) => <AreasListItem area={item.data} schedule={this.state.items['schedule']} navigate={navigate} />} />
       </View>
     );
