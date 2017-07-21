@@ -6,6 +6,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import keychain from './private.json';
+import LoadingView from './LoadingView.js';
 import {
   FlatList,
   StyleSheet,
@@ -42,7 +43,7 @@ class App extends Component {
   render() {
     
     if (!this.state.items) {
-      return <Text>Loading...</Text>
+      return <LoadingView />
     }
     const { navigate } = this.props.navigation;
     const areas = Object.keys(this.state.items['schedule']).map(area => ({key: area, data: area}));
@@ -72,7 +73,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-export default StackNavigator({
+
+const MainView = StackNavigator({
   Home: {screen: App},
   Area: {screen: AreaView}
-})
+});
+
+
+export default MainView;
