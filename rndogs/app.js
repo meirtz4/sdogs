@@ -13,13 +13,9 @@ import {
   Text,
   View
 } from 'react-native';
+import AreaView from './AreaView.js';
 
 const firebaseApp = firebase.initializeApp(keychain.firebase);
-
-const DayView = ({day, dogs}) => <View>
-                          <Text>{day}</Text>
-                          <FlatList data={dogs.map(d => {return {key:d, dog:d}})} renderItem={(i) => <Text key={i.item.key}>{i.item.dog}</Text>}/>
-                      </View>
 
 export default class App extends Component {
   constructor(props) {
@@ -35,17 +31,13 @@ export default class App extends Component {
     })
   }
 
-  stringifyWeek(week) {
-    return Object.keys(week).map(d => <DayView key={d} day={d} dogs={week[d]} />)
-  }
-
   render() {
     if (!this.state.items) {
       return <Text>Loading...</Text>
     }
     return (
       <View >
-          {Object.keys(this.state.items['schedule']).map(v => <View key={v}><Text>{`${v} - `}</Text>{this.stringifyWeek(this.state.items['schedule'][v])}</View>)}
+          {Object.keys(this.state.items['schedule']).map(v => <AreaView key={v} area={v} weeks={[this.state.items['schedule'][v]]} />)}
       </View>
     );
   }
