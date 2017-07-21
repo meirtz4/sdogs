@@ -5,19 +5,27 @@
  */
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-// import dogs from './dogsdata_v1.json';
 import keychain from './private.json';
 import {
   FlatList,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import AreaView from './AreaView.js';
 
 const firebaseApp = firebase.initializeApp(keychain.firebase);
 
-export default class App extends Component {
+const AreasListItem = ({area, schedule ,navigate}) => <Button key={area} title={area} onPress={() => navigate('Area', {area: area, weeks: [schedule[area]]})} />
+
+class App extends Component {
+
+  static navigationOptions = ({navigation}) => ({
+        title: '🐶Soluto Dogs🐶'
+    }); 
+
   constructor(props) {
     super(props);
     this.itemsRef = firebase.database().ref();
@@ -32,12 +40,15 @@ export default class App extends Component {
   }
 
   render() {
+    
     if (!this.state.items) {
       return <Text>Loading...</Text>
     }
+    const { navigate } = this.props.navigation;
+    const areas = Object.keys(this.state.items['schedule']).map(area => ({key: area, data: area}));
     return (
       <View >
-          {Object.keys(this.state.items['schedule']).map(v => <AreaView key={v} area={v} weeks={[this.state.items['schedule'][v]]} />)}
+        <FlatList data={areas} renderItem={({item}) => <AreasListItem area={item.data} schedule={this.state.items['schedule']} navigate={navigate} />} />
       </View>
     );
   }
@@ -61,3 +72,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+export default StackNavigator({
+  Home: {screen: App},
+  Area: {screen: AreaView}
+})
