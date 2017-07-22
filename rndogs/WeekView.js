@@ -29,14 +29,25 @@ const statusForNumberOfDogs = (numberOfDogs) => {
     }
     
 }
-const WeekListItem = ({dayOfWeek, dogs}) => 
-<View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-<View style={{flex:1, flexDirection:'column'}}>
-        <Text style={{fontSize:20, fontWeight:'bold', marginBottom:5}}>{dayOfWeek}</Text>
-        <Text style={{fontSize:20, marginBottom:5}}>{dogs ? '🐶'.repeat(dogs.length) : 'No dogs'}</Text>
+
+const DayIcon = ({dayOfWeek}) => <View style={{ backgroundColor:'#00aeef', borderRadius:30, borderStyle:'solid', borderWidth:1, width:60, height:60, justifyContent:'center', alignContent:'center', alignItems:'center'}}>
+            <Text style={{color:'white', fontSize:20, fontWeight:'bold', textAlign:'center'}}>{dayOfWeek[0]}</Text>
         </View>
-        <Text style={{flex:1, fontSize:25}}>{statusForNumberOfDogs(dogs ? dogs.length : 0)} </Text>
-        <Button style={{flex:1}} onPress={() => {}} title={'More...'} />
+
+const WeekListItem = ({dayOfWeek, dogs}) => 
+    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'flex-start', paddingTop:30, paddingBottom:30, paddingLeft:10}}>
+        <View style={{flex:1}}>
+            <DayIcon dayOfWeek={dayOfWeek} />
+        </View>
+        
+        <Text style={{flex:2, fontSize:30}}>{dogs ? '🐶'.repeat(dogs.length) : '😸'}</Text>
+        
+        
+         <View style={{flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+            <Text style={{flex:1, fontSize:25}}>{statusForNumberOfDogs(dogs ? dogs.length : 0)} </Text>
+             <Button style={{flex:1}} onPress={() => {}} title={'More...'} /> 
+        </View> 
+        
     </View>
 
 const WeekView = ({week}) => 
