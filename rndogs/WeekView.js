@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, Text, Button} from 'react-native';
+import {View, FlatList, Text, Button, TouchableHighlight, TouchableOpacity} from 'react-native';
 
 const workDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
 const Separator = () => <View
@@ -10,11 +10,6 @@ const Separator = () => <View
           
         }}
       />
-const DayView = ({day, dogs}) => 
-                        <View style={{flex:1, flexDirection:'column'}}>
-                          <Text>{day}</Text>
-                          <FlatList  data={dogs.map(d => {return {key:d, dog:d}})} renderItem={(i) => <Text style={{flex:1}} key={i.item.key}>{i.item.dog}</Text>}/>
-                        </View>
                     
 const statusForNumberOfDogs = (numberOfDogs) => {
     
@@ -30,31 +25,35 @@ const statusForNumberOfDogs = (numberOfDogs) => {
     
 }
 
-const DayIcon = ({dayOfWeek}) => <View style={{ backgroundColor:'#00aeef', borderRadius:30, borderStyle:'solid', borderWidth:1, width:60, height:60, justifyContent:'center', alignContent:'center', alignItems:'center'}}>
+const DayIcon = ({dayOfWeek}) => <View style={{ backgroundColor:'#00aeef', borderRadius:30, borderStyle:'solid', borderWidth:1, borderColor:'#00aeef',  width:60, height:60, justifyContent:'center', alignContent:'center', alignItems:'center'}}>
             <Text style={{color:'white', fontSize:20, fontWeight:'bold', textAlign:'center'}}>{dayOfWeek[0]}</Text>
         </View>
+const DogNamesList = ({dogs}) => <View style={{flex:2, flexDirection:'column', justifyContent:'space-around'}}>{dogs ? dogs.map(d => <Text key={d} style={{fontSize:16}}>🐶 {d}</Text>) : <Text style={{fontSize:30}}>😸</Text>}</View>
 
-const WeekListItem = ({dayOfWeek, dogs}) => 
+const WeekListItem = ({dayOfWeek, dogs, updateDogSchedule}) => 
     <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'flex-start', paddingTop:30, paddingBottom:30, paddingLeft:10}}>
         <View style={{flex:1}}>
             <DayIcon dayOfWeek={dayOfWeek} />
         </View>
         
-        <Text style={{flex:2, fontSize:30}}>{dogs ? '🐶'.repeat(dogs.length) : '😸'}</Text>
+          {/* <Text style={{flex:2, fontSize:30}}>{dogs ? '🐶'.repeat(dogs.length) : '😸'}</Text>   */}
+          <DogNamesList dogs={dogs} />  
         
         
          <View style={{flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
             <Text style={{flex:1, fontSize:25}}>{statusForNumberOfDogs(dogs ? dogs.length : 0)} </Text>
-             <Button style={{flex:1}} onPress={() => {}} title={'More...'} /> 
+             <Button style={{flex:1}} onPress={() => {updateDogSchedule(dayOfWeek)}} title={'Add dog'} /> 
         </View> 
         
     </View>
 
-const WeekView = ({week}) => 
+const TouchableWeekListItem = (props) => <TouchableOpacity onPress={() => props.onPress(props.dogs)}><View><WeekListItem updateDogSchedule={props.updateDogSchedule} dayOfWeek={props.dayOfWeek} dogs={props.dogs} /></View></TouchableOpacity>
+
+const WeekView = ({week, onDayPress, updateDogSchedule}) => 
     <View style={{flex:1, justifyContent:'space-around'}}>
         <FlatList 
         data={workDays.map(d => ({key:d, name:d}))} 
-        renderItem={({item}) => <WeekListItem dayOfWeek={item.name} dogs={week[item.name]} />}
+        renderItem={({item}) => <TouchableWeekListItem dayOfWeek={item.name} dogs={week[item.name]} onPress={onDayPress} updateDogSchedule={updateDogSchedule}/>}
         ItemSeparatorComponent={() => <Separator />} />
     </View>
 
