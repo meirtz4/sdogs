@@ -35,14 +35,10 @@ const WeekListItem = ({dayOfWeek, dogs, updateDogSchedule}) =>
         <View style={{flex:1}}>
             <DayIcon dayOfWeek={dayOfWeek} />
         </View>
-        
-          {/* <Text style={{flex:2, fontSize:30}}>{dogs ? '🐶'.repeat(dogs.length) : '😸'}</Text>   */}
           <DogNamesList dogs={dogs} />  
-        
-        
          <View style={{flex:1, flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
             <Text style={{flex:1, fontSize:25}}>{statusForNumberOfDogs(dogs ? dogs.length : 0)} </Text>
-             <Button style={{flex:1}} onPress={() => {updateDogSchedule(dayOfWeek)}} title={'Add dog'} /> 
+             <Button style={{flex:1}} onPress={() => {updateDogSchedule(dayOfWeek)}} title={'Toggle my dog'} /> 
         </View> 
         
     </View>
