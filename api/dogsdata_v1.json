@@ -1,32 +1,32 @@
 {
   "F1Sunday": [
-    "Tchutch","Google"
+    "Sefi","Buffy"
   ],
   "F1Monday": [
-    "Tchutch","Jango","Sefi"
+    "Jango","Sita","Shisel"
   ],
   "F1Tuesday": [
-    "Tchutch", "Kongo","Google","Oliver","Sefi"
+    "Sefi"
   ],
   "F1Wednesday": [
-    "Jango","Kapi","Nick"
+    "Jango","Kepi"
   ],
   "F1Thursday": [
-    
+    "Sefi","Choncho","Kepi"
   ],
   "F2Sunday": [
-    
+    "Miro"
   ],
   "F2Monday": [
-    "Polly"
+    ""
   ],
   "F2Tuesday": [
-    "Masha"
-  ],
-  "F2Wednesday": [
     "Polly"
   ],
+  "F2Wednesday": [
+    ""
+  ],
   "F2Thursday": [
-    "Masha"
+    ""
   ]
 }
